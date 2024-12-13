@@ -10,18 +10,22 @@ function getRandomHexColor() {
     .padStart(6, 0)}`
 }
 
+const deleteBoxes = () => (container.innerHTML = '')
+
 function createBoxes(amount) {
   deleteBoxes()
+  const boxes = []
   let size = 30
   for (let i = 0; i < amount; i++) {
-    const boxes = document.createElement('div')
-    boxes.style.width = `${size}px`
-    boxes.style.height = `${size}px`
-    boxes.style.backgroundColor = getRandomHexColor()
-    boxes.style.margin = '10px'
-    container.append(boxes)
+    const box = document.createElement('div')
+    box.style.width = `${size}px`
+    box.style.height = `${size}px`
+    box.style.backgroundColor = getRandomHexColor()
+    box.style.margin = '10px'
+    boxes.push(box)
     size += 10
   }
+  container.append(...boxes)
 }
 
 createButton.addEventListener('click', (e) => {
@@ -34,8 +38,4 @@ createButton.addEventListener('click', (e) => {
   }
 })
 
-destroyButton.addEventListener('click', (e) => {
-  deleteBoxes()
-})
-
-const deleteBoxes = () => (container.innerHTML = '')
+destroyButton.addEventListener('click', deleteBoxes)
